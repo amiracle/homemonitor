@@ -1,0 +1,39 @@
+<form>
+  <label>External Investigation Dashboard Source IP</label>
+  <description>Check Source IP</description>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="dropdown" token="command" searchWhenChanged="true">
+      <label>Select Test You want to run</label>
+      <choice value="arin">IP Block Information</choice>
+      <choice value="blacklist">Check Reputation</choice>
+      <choice value="scan">Port Scan</choice>
+      <choice value="http">Verify URL Allows http connections</choice>
+      <choice value="https">Verify URL Allows https connections</choice>
+      <choice value="trace">ICMP Traceroute</choice>
+      <choice value="ping">ICMP Ping</choice>
+      <choice value="smtp">Test Mail Server</choice>
+      <!--
+		Remove until DNS FQDN can be added
+	  <choice value="tcp">verify IP Address allow tcp connections</choice>
+      <choice value="mx">DNS MX Records</choice>
+      <choice value="a">DNS A Records</choice>
+      <choice value="soa">Get Start of Authority record for domain</choice>
+      <choice value="spf">SPF records on domain</choice>
+      <choice value="txt">TXT records on domain</choice>
+      <choice value="whois">Domain Registration Information</choice>
+      <choice value="dns">DNS Resolution</choice>
+	  -->
+      <prefix>http://mxtoolbox.com/SuperTool.aspx?action=</prefix>
+      <suffix>%3A$src_ip$&amp;amp;run=networktools</suffix>
+    </input>
+  </fieldset>
+  <row>
+    <html>
+     <h1>Click the link below:</h1>
+       <p>
+         <h2><a href="$command$" target="main_frame">$command$</a></h2>
+      </p>       
+       <iframe name="main_frame" height="600px" width="100%" style="border:2px;"/>
+</html>
+  </row>
+</form>

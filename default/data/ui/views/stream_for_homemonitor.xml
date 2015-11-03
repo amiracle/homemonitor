@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<dashboard>
+  <label>Setting up Splunk Stream with the home | monitor > app</label>
+  <row>
+        <html>
+                <h1>Scroll Down to see how to setup Splunk Stream with the home | monitor > app </h1>
+                <center>
+                  <iframe src="http://amiracle19.blogspot.com/2015/10/adding-splunk-stream-to-your-home.html" height="600px" width="100%" style="border:2px;"/>
+                </center>
+        </html>
+  </row>
+</dashboard>

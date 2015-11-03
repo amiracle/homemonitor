@@ -1,0 +1,33 @@
+<nav>
+     <collection label="Setup">
+        <view name="arch" default="true" />
+        <view name="troubleshooting" />
+        <view name="fios_setup" />
+        <view name="pfsense_setup" />
+        <view name="stream_for_homemonitor" />
+        <a href="mailto:kam@splunk.com?Subject=HomeMonitor">Send Feedback...</a>
+     </collection>
+ 	 <collection label="Universal Dashboards">
+       <view name="hm_overview" />
+       <view name="Intrusions" />
+       <view name="blocked_traffic" />
+       <view name="duration_dashboard" />
+       <view name="geographic_intelligence" />
+  	 </collection>
+  <collection label="FiOS Specific Dashboards">
+    <view name="router_configurations" />
+  </collection>
+  <collection label="pfSense Specific Dashboards">
+    <view name="home_network_topology" />
+    <view name="openvpn_dashboard" />
+    <view name="device_overview" />
+    <collection label="Experimental Views">
+  		<view name="Top_Domains" />
+  		<view name="Force_Map" />
+    	<view name="Sankey_Map" />
+     </collection>
+     </collection>
+    	<view name="map_of_connections" />
+    	<view name="search" />
+    	<view name="data_models" />
+</nav>

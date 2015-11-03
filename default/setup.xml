@@ -1,0 +1,27 @@
+<setup>
+<block title="">
+<text>Make sure you type this in lower case and all one word. Here is a list of the supported router types:</text>
+<text>asus</text>
+<text>pfsense</text>
+<text>linksys</text>
+<text>dd-wrt</text>
+<text>fios</text>
+<text>netgear</text>
+<text>skyhub</text>
+<text>mikro</text>
+</block>
+<block title="Add new inputs for your modem or device" endpoint="data/inputs/udp/" entity="514">
+<text>The system defaults to 'syslog,' in which case Splunk will use your modem's hostname to determine the sourcetype that should be used.</text>
+<input field="sourcetype"> 
+<label>What brand is your home router?</label>
+<type>text</type>
+</input>
+</block>
+<block title="Enable the UDP input" endpoint="data/inputs/udp/" entity="514">
+<text>Enable UDP 514</text>
+<input field="disabled">
+<label>Disabled, please uncheck to enable.</label>
+<type>bool</type>
+</input>
+</block>
+</setup>

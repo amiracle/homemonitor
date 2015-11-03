@@ -1,0 +1,37 @@
+<form>
+  <label>Detective Dashboard</label>
+  <description>Investigate where this IP has been on your network. This will also allow you to trace what other devices it has communicated with while in your network.</description>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="time" searchWhenChanged="true">
+      <label>Time</label>
+      <default>
+        <earliest>-60m@m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="text" token="destip">
+      <label>Host</label>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>External IP Activity</title>
+      <table>
+        <title>Click on the IP into the Bad Guy Hunter Dashboard</title>
+        <search>
+          <query>index=homemonitor src_ip=$destip$ |  iplocation src_ip | stats count by dest_ip dest_port Country action2 |  rename dest_ip as IP, dest_port as "Destination Port", action2 as Action | table IP "Destination Port" Action Country City count | sort -count</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="count">10</option>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <link>/app/homemonitor/bad_guy?form.dest_ip=$destip$</link>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+</form>

@@ -1,0 +1,6 @@
+linksys_src_port, src_port
+https,443
+http,80
+ssh,22
+smtp,25
+pop,110

@@ -1,0 +1,76 @@
+<form>
+  <label>OpenVPN Dashboard</label>
+  <description>OpenVPN status</description>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="time">
+      <label>Time</label>
+      <default>
+        <earliest>-60m@m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <single>
+        <title>Connections</title>
+        <search>
+          <query>eventtype=openvpn_connection user_openvpn!=NULL AND IPv4!=NULL openvpn_stats=TLS | stats count</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="linkView">search</option>
+        <option name="beforeLabel">Initiated Connections</option>
+      </single>
+      <single>
+        <title>Active Connections</title>
+        <search>
+          <query>eventtype=openvpn_connection user_openvpn!=NULL AND IPv4!=NULL| stats count</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="beforeLabel">Connections</option>
+        <option name="underLabel">In the last hour</option>
+        <option name="linkView">search</option>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <map>
+        <title>Map of Connections</title>
+        <search>
+          <query>eventtype=openvpn_connection user_openvpn!=NULL AND IPv4!=NULL | iplocation src_ip_openvpn | geostats count by src_ip_openvpn</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="mapping.data.maxClusters">100</option>
+        <option name="mapping.map.center">(0,0)</option>
+        <option name="mapping.map.zoom">2</option>
+        <option name="mapping.markerLayer.markerMaxSize">50</option>
+        <option name="mapping.markerLayer.markerMinSize">10</option>
+        <option name="mapping.markerLayer.markerOpacity">0.8</option>
+        <option name="mapping.tileLayer.maxZoom">7</option>
+        <option name="mapping.tileLayer.minZoom">0</option>
+        <option name="drilldown">all</option>
+      </map>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>Users and IP's logged in</title>
+        <search>
+          <query>eventtype=openvpn_connection user_openvpn!=NULL AND IPv4!=NULL | rename src_ip_openvpn AS "Source IP", src_port_openvpn AS "Source Port", IPv4 AS "Internal IP" user_openvpn AS "User"  | table "User" "Source IP" "Source Port" "Internal IP"</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="wrap">undefined</option>
+        <option name="rowNumbers">undefined</option>
+        <option name="drilldown">row</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="count">10</option>
+      </table>
+    </panel>
+  </row>
+</form>

@@ -1,0 +1,199 @@
+<form>
+  <label>Device Overview</label>
+  <description>This dashboard requires that you have Splunk Stream installed and indexing data.  Refer to the Setup guide on how to setup Splunk Stream and the home | monitor &gt; app.</description>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="text" token="dest_ip" searchWhenChanged="true">
+      <label>Device IP</label>
+    </input>
+    <input type="time" token="time" searchWhenChanged="true">
+      <label>Select Time</label>
+      <default>
+        <earliest>-60m@m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Bandwidth by Device</title>
+      <table>
+        <title>Click on the Devices Below</title>
+        <search>
+          <query>index=main sourcetype=stream:tcp dest_ip=192.168.1.* | stats sum(bytes_in) as IN  sum(bytes_out) as OUT by dest_ip | lookup dnslookup clientip AS dest_ip OUTPUT clienthost | eval in_mbps=IN/1024/1024 | eval out_mbps=OUT/1024/1024 | rename  clienthost as "Hostname" in_mbps as "In Bound Mbps" out_mbps as "Out Bound Mbps" | table  dest_ip "Hostname" "In Bound Mbps" "Out Bound Mbps" | sort -"Out Bound Mbps"</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="drilldown">row</option>
+        <drilldown>
+          <set token="dest_ip">$row.dest_ip$</set>
+          <set token="form.dest_ip">$row.dest_ip$</set>
+        </drilldown>
+        <option name="dataOverlayMode">none</option>
+        <option name="count">10</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Bandwidth Over Time</title>
+      <chart>
+        <title>In vs. Out in Mbps</title>
+        <search>
+          <query>index=main sourcetype=stream:tcp dest_ip=$dest_ip$ |  eval in_mbps=bytes_in/1024/1024, out_mbps=bytes_out/1024/1024 | timechart per_hour(in_mbps) AS IN, per_hour(out_mbps) AS OUT by dest_ip</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">1</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">connect</option>
+        <option name="charting.chart.overlayFields">sum(bytes_in)</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.axisTitleX.text">Time</option>
+        <option name="charting.axisTitleY.text">Mbps</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>DNS Queries by Device</title>
+        <search>
+          <query>index=homemonitor OR index=main sourcetype=stream:dns OR sourcetype=pfsense src_ip=$dest_ip$ "query_type{}"=A | stats count by "query{}" | sort -count</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">10</option>
+      </table>
+    </panel>
+    <panel>
+      <table>
+        <title>Sites Visited by $dest_ip$</title>
+        <search>
+          <query>index=main sourcetype=stream:http src_ip=$dest_ip$ | stats count by site | head 10 | sort -count</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="drilldown">cell</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="count">10</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Bandwidth Used by Device</title>
+      <single>
+        <title>Bandwidth Out</title>
+        <search>
+          <query>index=main sourcetype=stream:tcp dest_ip=$dest_ip$ | stats sum(bytes_out) as OUT   | eval out_mbps=OUT/1024/1024 | table  out_mbps  | addtotals fieldname="Total Bandwidth" *mbps*</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="numberPrecision">0.0000</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="linkView">search</option>
+        <option name="rangeColors">["0x65a637","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[5,10,20,100]</option>
+        <option name="trendInterval">auto</option>
+        <option name="underLabel">Mbps</option>
+      </single>
+      <single>
+        <title>Bandwidth In</title>
+        <search>
+          <query>index=main sourcetype=stream:tcp dest_ip=$dest_ip$ | stats sum(bytes_in) as IN   | eval in_mbps=IN/1024/1024 | table  in_mbps  | addtotals fieldname="Total Bandwidth" *mbps*</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="numberPrecision">0.0000</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="linkView">search</option>
+        <option name="rangeColors">["0x65a637","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[5,10,20,100]</option>
+        <option name="trendInterval">auto</option>
+        <option name="underLabel">Mbps</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Port Pairs with packet overlay</title>
+      <chart id="detail">
+        <search>
+          <query>index=main sourcetype=stream:* dest_ip=$dest_ip$ | eval portPair=src_port."-&gt;".dest_port |  stats sum(bytes_in) as bytes sum(packets_in) as packets by portPair | rename portPair as "In Bound Port Pair" | sort 10 -bytes</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="count">10</option>
+        <drilldown>
+          <link>/app/homemonitor/detective_dashboard?form.destip=$row.Destination_IP$</link>
+        </drilldown>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">bar</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.chart.overlayFields">packets</option>
+      </chart>
+    </panel>
+  </row>
+</form>

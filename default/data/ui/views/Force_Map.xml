@@ -1,0 +1,35 @@
+<form script="autodiscover.js">
+  <label>Force-Directed Map</label>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="time" searchWhenChanged="true">
+      <label>Timespan</label>
+      <default>
+        <earliest>-60m@m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table id="table1">
+        <search>
+          <query>index=main source=stream:http* transport=tcp  | join src_ip [search index=homemonitor sourcetype=pfsense DHCPACK NOT nat_ip=""| rename  nat_ip as src_ip | table src_ip nat_hostname] | table nat_hostname site | rename nat_hostname as source | rename site as target |   stats count by source,target | sort -count</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">10</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Force Map</title>
+      <html>
+            <div id="custom" class="splunk-view" data-require="app/homemonitor/components/forcedirected/forcedirected" data-options="{                         &quot;managerid&quot;: &quot;search1&quot;                     }" style="height: 500px;">
+            </div>
+        </html>
+    </panel>
+  </row>
+</form>

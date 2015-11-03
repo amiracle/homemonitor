@@ -1,0 +1,25 @@
+<setup>
+  <block title="Basic stuff" endpoint="saved/searches/" entity="foobar">
+    <text> some description here </text>
+    
+    <input field="is_scheduled">
+      <label>Enable Schedule for $name$</label>   <!-- this will be rendered as "Enable Schedule for foobar" -->
+      <type>bool</type>
+    </input>
+    
+    <input field="cron_scheduled">
+      <label>Cron Schedule</label>
+      <type>text</type>
+    </input>
+    <input field="actions">
+      <label>Select Active Actions</label>
+      <type>list</type>
+    </input>
+    
+    <!-- bulk update  -->
+    <input entity="*" field="is_scheduled" mode="bulk">
+      <label>Enable Schedule For All</label>
+      <type>bool</type>
+    </input>
+  </block>
+</setup>

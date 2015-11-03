@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?><dashboard>
+  <label>Router Configurations</label>
+  <row>
+    <panel>
+      <chart>
+        <title>Number of Configuration Changes to Router (Real time 30 minute window)</title>
+        <searchString>index=homemonitor sourcetype=fios state="Configuration change" NOT Unknown | stats count(state)</searchString>
+        <earliestTime>rt-30m</earliestTime>
+        <latestTime>rt</latestTime>
+        <option name="charting.chart">fillerGauge</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">minimal</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">false</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+      </chart>
+    </panel>
+    <panel>
+      <table>
+        <title>Real Time (last 30 minutes) Configuration Changes to Router</title>
+        <searchString>state="Configuration change" NOT Unknown | stats count values(state) as Connections, by config_change_user</searchString>
+        <earliestTime>rt-30m</earliestTime>
+        <latestTime>rt</latestTime>
+        <option name="count">20</option>
+        <option name="displayRowNumbers">true</option>
+        <option name="maxLines">10</option>
+        <option name="segmentation">full</option>
+        <option name="softWrap">True</option>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">true</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+      </table>
+    </panel>
+    <panel>
+      <table>
+        <title>Configuration Changes to Router by user Last 7 Days</title>
+        <searchString>state="Configuration change" NOT Unknown | stats count values(state) as Connections, by config_change_user</searchString>
+        <earliestTime>-7d@h</earliestTime>
+        <latestTime>now</latestTime>
+        <option name="count">20</option>
+        <option name="displayRowNumbers">true</option>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">true</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>Connection States Last 24 Hours</title>
+        <searchString>index=homemonitor sourcetype=fios
+ | top state</searchString>
+        <earliestTime>-24h@h</earliestTime>
+        <latestTime>now</latestTime>
+        <option name="charting.chart">pie</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">false</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">right</option>
+      </chart>
+    </panel>
+    <panel>
+      <chart>
+        <title>Non Connection based router messages</title>
+        <searchString>index=homemonitor sourcetype=fios NOT state="Connection *" | top limit=10 state</searchString>
+        <earliestTime>-24h@h</earliestTime>
+        <latestTime>now</latestTime>
+        <option name="charting.axisTitleX.text">Connection State</option>
+        <option name="charting.axisTitleY.text">Attempts</option>
+        <option name="charting.chart">bar</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">false</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+      </chart>
+    </panel>
+  </row>
+</dashboard>

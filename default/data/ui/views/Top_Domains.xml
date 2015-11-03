@@ -1,0 +1,75 @@
+<form script="autodiscover.js">
+  <label>Home Tag Cloud</label>
+  <description>This view uses the Tag Cloud D3 visualization and shows what domains have been browsed by devices on your network.</description>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="time" searchWhenChanged="true">
+      <label>Select Timespan</label>
+      <default>
+        <earliest>-15m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+  <search id="tagcloud_search1">
+    <query>
+      <![CDATA[index=main sourcetype=stream* app=http    http_comment="HTTP/1.1 200 OK" NOT site=192.168.1.* | stats count by site | where count < 2 | table site count]]>
+    </query>
+    <earliest>$time.earliest$</earliest>
+    <latest>$time.latest$</latest>
+  </search>
+  <search id="tagcloud_search2">
+    <query><![CDATA[index=main sourcetype=stream* app=http    http_comment="HTTP/1.1 200 OK" NOT site=192.168.1.* | stats count by site | where count < 5 | table site count]]></query>
+    <earliest>$time.earliest$</earliest>
+    <latest>$time.latest$</latest>
+  </search>
+  <row>
+    <panel>
+      <chart>
+        <title>Sites by time</title>
+        <search>
+          <query>index=main source="stream:http*" site!=192.168.1.1 site!=localhost site!=192.168.* | timechart count by site usenull=false, useother=false</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.axisY2.enabled">undefined</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.axisTitleX.text">Time</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Least Active Domains</title>
+      <html>
+                <div id="tagcloud1" class="splunk-view" data-require="app/homemonitor/components/tagcloud/tagcloud" data-options="{                         &quot;minFontSize&quot;: 14,                         &quot;maxFontSize&quot;: 55,                         &quot;managerid&quot;: &quot;tagcloud_search1&quot;,                         &quot;valueField&quot;: &quot;count&quot;,                         &quot;labelField&quot;: &quot;site&quot;                      }">
+                </div>
+            </html>
+    </panel>
+    <panel>
+      <title>Top Active Domains</title>
+      <html>
+                <div id="tagcloud2" class="splunk-view" data-require="app/homemonitor/components/tagcloud/tagcloud" data-options="{                         &quot;minFontSize&quot;: 14,                         &quot;maxFontSize&quot;: 55,                         &quot;managerid&quot;: &quot;tagcloud_search2&quot;,                         &quot;valueField&quot;: &quot;count&quot;,                         &quot;labelField&quot;: &quot;site&quot;                      }">
+                </div>
+            </html>
+    </panel>
+  </row>
+</form>

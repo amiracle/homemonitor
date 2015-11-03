@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<dashboard>
+  <label>FiOS Modem Setup </label>
+  <row>
+        <html>
+                <h1>Scroll Down to see how to configure your Verizon FiOS Router / Firewall </h1>
+                <h3>These steps start with the configuring your router then show you how to setup and configure your Splunk instnace to receive the syslog data (UDP 514). </h3>
+                <center>
+                  <iframe src="http://amiracle19.blogspot.com/p/setting-up-verizon-fios-router-for-home.html" height="600px" width="100%" style="border:2px;"/>
+                  <!--
+                        <a href="hm_overview">
+                        <img src="/static/app/homemonitor/step1.png"/>
+                        <img src="/static/app/homemonitor/step2.png"/>
+                        <img src="/static/app/homemonitor/step3.png"/>
+                        <img src="/static/app/homemonitor/step4.png"/>
+                        <img src="/static/app/homemonitor/step4a.png"/>
+                        <img src="/static/app/homemonitor/step4b.png"/>
+                        <img src="/static/app/homemonitor/step4c.png"/>
+                        <img src="/static/app/homemonitor/step4d.png"/>
+                        </a>
+					-->
+                </center>
+        </html>
+  </row>
+</dashboard>
