@@ -1,0 +1,25 @@
+.show-tokens {
+    background: white;
+    border-top: 1px solid #ccc;
+}
+.show-tokens h3 {
+    padding-left: 20px;
+}
+.show-tokens .token-name, .show-tokens .token-value {
+    font-family: monospace;
+}
+.show-tokens .token-name {
+    color: #d85d3c;
+}
+.show-tokens .token-value {
+    color: #333;
+}
+.show-tokens .token-value.undefined {
+    color: #999;
+
+}
+.show-tokens .form-switch {
+    float: right;
+    padding-right: 20px;
+    padding-top: 6px;
+}

@@ -1,0 +1,326 @@
+.touromatic {
+    padding: 0 30px 30px;
+}
+.touromatic h2 {
+    background: #DDD;
+    border-right: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+padding: 8px 15px;
+}
+.add-tour,
+.tour-tile,
+.image-tile,
+.add-image {
+    display: inline-block;
+    position: relative;
+    padding: 2px;
+    border: 1px solid #CCC;
+    margin: 0 10px 10px 0;
+    background: #EEE;
+    cursor: pointer;
+    height: 250px;
+    width: 250px;
+    vertical-align: middle;
+}
+
+/*.image-tile,
+.add-image {
+    padding: 2px;
+    background: #FFF;
+    border: 1px solid #CCC;
+    margin: 0 10px 10px 0;
+    display: inline-block;
+    height: 250px;
+    width: 250px;
+    vertical-align: middle;
+}*/
+
+.add-tour h3,
+.tour-tile h3 {
+    padding: 10px;
+    background: rgba(230, 230, 230, 0.9);
+    border-bottom: 1px solid #666;
+    color: #333;
+    margin: 0;
+}
+p.tour-id {
+    line-height: 36px;
+    text-align: center;
+    cursor: text;
+}
+.tour-item-container {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+}
+.tour-item-container .info-container {
+    background: rgba(0, 0, 0, 0.6);
+    height: 240px;
+    width: 230px;
+    color: #FFF;
+    padding: 5px 10px;
+    position: absolute;
+    top: 250px;
+    transition: top .5s;
+}
+.tour-item-container .info-container.active {
+    top: 0;
+}
+.tour-item-container .info-container .action-button {
+    color: #CCC;
+    display: block;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.5);
+    width: 186px;
+    text-align: center;
+    border: 1px solid #CCC;
+    font-size: 16px;
+    margin-top: 15px;
+}
+.tour-item-container .info-container .action-button:hover {
+    color: #EEE;
+    background: rgba(0, 0, 0, 0.9);
+    text-decoration: none;
+}
+.add-tour {
+    position: relative;
+    background: none;
+    border: 5px dashed #CCC;
+}
+.add-tour svg {
+    fill: #CCC;
+    position: absolute;
+    top: 85px;
+    left: 85px;
+}
+.add-tour .add-tour-text {
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    width: 250px;
+    color: #BBB;
+    font-size: 15px;
+}
+.tour-section {
+    margin-bottom: 25px;
+}
+.tour-images {
+    position: relative;
+    z-index: 1000;
+    transition: padding .5s, background .5s;
+}
+.tour-images.sorting {
+    padding: 80px 20px 20px;
+    background: #FFF;
+}
+.tour-images.sorting .image-tile {
+    cursor: move;
+}
+.tour-images.sorting .image-tile .info-container {
+    top: 250px !important;
+}
+.ui-sortable-helper .info-container {
+    display: none;
+}
+.image-tile,
+.add-image {
+    padding: 2px;
+    background: #FFF;
+    border: 1px solid #CCC;
+    margin: 0 10px 10px 0;
+    display: inline-block;
+    height: 250px;
+    width: 250px;
+    vertical-align: middle;
+}
+.image-tile .image-container,
+.add-image .image-container {
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+}
+.image-tile .image-container .info-container,
+.add-image .image-container .info-container {
+    background: rgba(0, 0, 0, 0.6);
+    height: 240px;
+    width: 240px;
+    color: #FFF;
+    padding: 5px 10px;
+    position: absolute;
+    top: 180px;
+    transition: top .5s;
+}
+.image-tile .image-container .info-container.active,
+.add-image .image-container .info-container.active {
+    top: 0;
+}
+.image-tile .image-container .info-container .action-button,
+.add-image .image-container .info-container .action-button {
+    color: #CCC;
+    display: block;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.5);
+    width: 188px;
+    text-align: center;
+    border: 1px solid #CCC;
+    font-size: 16px;
+}
+.image-tile .image-container .info-container .action-button:hover,
+.add-image .image-container .info-container .action-button:hover {
+    color: #EEE;
+    background: rgba(0, 0, 0, 0.9);
+    text-decoration: none;
+}
+.image-tile.add-image,
+.add-image.add-image {
+    cursor: pointer;
+    position: relative;
+    background: none;
+    border: 5px dashed #CCC;
+}
+.image-tile.add-image svg,
+.add-image.add-image svg {
+    fill: #CCC;
+    position: absolute;
+    top: 85px;
+    left: 85px;
+}
+.image-tile.add-image .add-image-text,
+.add-image.add-image .add-image-text {
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+    width: 250px;
+    color: #BBB;
+    font-size: 20px;
+}
+.dropzone {
+    width: 100%;
+    height: 150px;
+    position: relative;
+}
+.dropzone-icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -60px;
+    margin-left: -25px;
+}
+.dropzone-icon .fill {
+    fill: #F58220;
+}
+.dropzone-box {
+    fill: none;
+    position: absolute;
+    left: 10px;
+    top: 5px;
+    display: block;
+    width: 395px !important;
+}
+.dropzone-box .dashed {
+    stroke-width: 2px;
+    stroke-dasharray: 10,10;
+    stroke: rgba(245, 130, 32, 0.5);
+}
+.dropzone-text {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+.dropzone-text h2 {
+    color: #65A637;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 200;
+    display: inline-block;
+    margin: 0;
+    padding: 5px 10px;
+    color: #F58220;
+}
+.modal .modal-body {
+    max-height: 900px !important;
+}
+.modal .caption-text {
+    margin-top: 15px;
+}
+.modal .caption-text label {
+    font-weight: bold;
+}
+.modal textarea {
+    width: 400px;
+}
+.modal .selected-file {
+    display: inline-block;
+    margin-left: 10px;
+}
+.modal .preview-tile {
+    height: 100px;
+    width: 230px;
+    border: 1px solid #CCC;
+    background-size: cover !important;
+    display: block;
+    vertical-align: middle;
+    margin: 15px auto;
+    text-align: center;
+    padding-top: 70px;
+    color: #AAA;
+}
+.image-tile-placeholder {
+    border: 3px dashed #666;
+    margin-right: 10px;
+    display: inline-block;
+    height: 250px;
+    width: 250px;
+    vertical-align: middle;
+}
+.tour-button {
+    padding: 10px;
+    background: #333;
+    border: 1px solid #CCC;
+    color: #EEE;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+button.button.tour-button[disabled] {
+    background: #CCC;
+}
+a.back {
+    margin: 10px 0 10px;
+    display: block;
+}
+a.edit-label {
+    font-size: 12px;
+    vertical-align: middle;
+}
+.reorder-backdrop {
+    z-index: 999;
+}
+.stop-reorder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: none;
+    font-size: 25px;
+    padding: 20px;
+}
+p.image-caption {
+    height: 35px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.alerts.shared-flashmessageslegacy {
+    padding: 0 10px;
+    background-color: #f2bac1;
+    margin-bottom: 15px;
+}
+.alert {
+    margin-bottom: 0;
+}

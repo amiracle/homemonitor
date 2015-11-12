@@ -1,0 +1,9 @@
+td.data-bar-cell {
+    padding: 4px 8px;
+}
+
+td.data-bar-cell .data-bar-wrapper .data-bar {
+    height: 16px;
+    min-width: 1px;
+    background-color: #5479AF;
+}

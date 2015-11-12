@@ -26,6 +26,23 @@
   </fieldset>
   <row>
     <panel>
+      <table>
+        <title>List of Bad Domains (Blocked)</title>
+        <search>
+          <query>index=homemonitor sourcetype=$sourcetype$ action2=BLOCK src_ip!=$local_ip$ | lookup dnslookup clientip as src_ip OUTPUT clienthost | rex field=clienthost "(?&lt;Domain&gt;(\d{1,3}.\d{1,3}?|[^\.\s]+?)\.([^\.\s]{1,3}|[^\.\s]{1,3}\.[^\.\s]{1,3}))$$" | stats count as Attempts values(src_port) as "Source Ports" by Domain, protocol  | sort -Attempts</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="drilldown">cell</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="count">10</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
       <title>OUT</title>
       <table>
         <title>Out-going Blocked Hosts</title>

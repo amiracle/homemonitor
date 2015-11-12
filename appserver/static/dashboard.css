@@ -1,0 +1,96 @@
+.html .showsource-container {
+    margin: 0 -10px;
+}
+
+.example-info {
+    margin: 0 0 15px 15px;
+}
+
+.example-info li>p {
+    margin: 0;
+}
+
+.dashboard-body {
+    padding-bottom: 20px;
+}
+
+.sourcecode-viewer .dashboard-description {
+    background: #fff;
+    border-top: 1px solid #ccc;
+    padding: 0 20px;
+}
+
+.sourcecode-viewer .description-title {
+    margin: 15px 0 0 15px;
+}
+
+.sourcecode-viewer {
+    background: #fff;
+}
+
+.showsource-container .nav {
+    margin-bottom: 0;
+}
+
+.showsource-container .nav li.nav-title {
+    border: 1px solid #ccc;
+    border-left: none;
+    height: 14px;
+    margin-right: -5px;
+    z-index: 5;
+    color: #000;
+    background-color: #f4f4f4;
+    background-image: -moz-linear-gradient(top, #f8f8f8, #eeeeee);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f8f8f8), to(#eeeeee));
+    background-image: -webkit-linear-gradient(top, #f8f8f8, #eeeeee);
+    background-image: -o-linear-gradient(top, #f8f8f8, #eeeeee);
+    background-image: linear-gradient(to bottom, #f8f8f8, #eeeeee);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8', endColorstr='#ffeeeeee', GradientType=0);
+    padding: 5px 17px 5px 24px;
+    font-weight: bold;
+}
+
+.showsource-container .nav li.nav-title::before,
+.showsource-container .nav li.nav-title::after {
+    display: none;
+}
+
+.showsource-container .prettyprint {
+    background: #fff;
+    border: none;
+    border-bottom: 1px solid #aeaeae;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+}
+
+.prettyprint code, pre {
+    font-size: 12px;
+}
+
+.showsource-container .nav-tabs {
+    /*padding-left: 55px;*/
+}
+
+.showsource-container .nav-tabs > li.active > a {
+    background: #f7f7f9;
+}
+
+.tab-pane.error {
+    padding: 25px;
+}
+
+code.inline {
+    padding: 2px 4px;
+}
+
+.showsource-container h5 {
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+
+.empty-dashboard {
+    display: none;
+}

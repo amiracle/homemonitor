@@ -1,0 +1,98 @@
+/* @override 
+	http://localhost:9000/en-US/static/@111122.11:0/app/homemonitor/application.css
+	http://localhost:9000/en-US/static/@111122.12:0/app/homemonitor/application.css
+	http://localhost:9000/en-US/static/@111335.22:0/app/homemonitor/application.css
+*/
+
+body, td, .splMenu {
+	font-family:  "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+}
+
+.SingleValue .simon {
+	font-family:  "Lucida Grande";
+	background-color: #FF;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25) inset;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+test {
+	color: silver;
+	text-align: left;
+	clear: none;
+}
+
+div.bmc_remedy {
+	text-align: left;
+	float: left;
+	padding-top: 7px;
+}
+
+img.bmc_remedy {
+	position: relative;
+	#padding-top: 10px;
+	top: -15px;
+	float: right;
+}
+
+hr.test {
+	border-style: dashed;
+	border-width: 1px;
+	border-top-style: none;
+	color: silver;
+}
+
+hr.simon {
+	border-style: dashed;
+	border-width: 1px;
+	border-top-style: none;
+	color: silver;
+	position: relative;
+	top: -15px;
+}
+
+table.sv_table {
+	#margin: 0px;
+	color: #edcc3a;
+	#padding: 0px;
+	#border-style: solid;
+	#border-width: 2px;
+	border-collapse:collapse;
+	border-spacing: 0px;
+	margin-left:auto; 
+    margin-right:auto;
+	background-repeat: no-repeat;
+	background-image: url(http://localhost:8000/static/app/appmgmt/end2end.png);
+
+}
+
+td.sv_symbol {
+	font-size: 58px;
+	color: #727272;
+	font-weight: bold;
+	padding: 0;
+	position: relative;
+	top: -5px;
+	left: 8px;
+}
+
+td.sv_label {
+	font-size: 15px;
+	color: #487fa5;
+	padding: 0px;
+	position: relative;
+	top: -11px;
+	left: 5px;
+	text-align: center;
+}
+
+td.sv_value {
+	font-size: 45px;
+	color: #386786;
+	letter-spacing: -5px;
+	
+	font-weight: bold;
+	padding: 0;
+	text-align: center;
+}

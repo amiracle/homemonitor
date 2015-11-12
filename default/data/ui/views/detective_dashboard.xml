@@ -19,7 +19,7 @@
       <table>
         <title>Click on the IP into the Bad Guy Hunter Dashboard</title>
         <search>
-          <query>index=homemonitor src_ip=$destip$ |  iplocation src_ip | stats count by dest_ip dest_port Country action2 |  rename dest_ip as IP, dest_port as "Destination Port", action2 as Action | table IP "Destination Port" Action Country City count | sort -count</query>
+          <query>index=homemonitor src_ip=$destip$ |  iplocation src_ip | stats count by src_ip dest_port Country action2 |  rename src_ip as IP, dest_port as "Destination Port", action2 as Action | table IP "Destination Port" Action Country City count | sort -count</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>

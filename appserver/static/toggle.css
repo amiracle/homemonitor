@@ -1,0 +1,9 @@
+.dashboard-row .dashboard-panel .panel-body {
+  overflow: hidden;
+  clear: none;
+}
+.dashboard-row2 {
+    visibility: hidden;
+    height: 0px;
+    overflow: hidden;
+}

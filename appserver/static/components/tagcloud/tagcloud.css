@@ -1,0 +1,12 @@
+.tagcloud-viz {
+	text-align: center;
+	margin: 20px auto;
+	max-width: 60%;
+	line-height: 18px;
+}
+
+.tagcloud-viz .link {
+	padding: 2px 3px;
+    display: inline-block;
+    vertical-align: middle;
+}

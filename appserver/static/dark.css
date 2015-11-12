@@ -1,0 +1,51 @@
+body,.dashboard-body,.footer,.header,.app-bar,.dashboard-panel,.dashboard-cell { 
+	background: #333 !important; 
+}
+a {
+	color: #ccc;
+}
+a:hover {
+	color: #fff;
+}
+.dashboard-row .dashboard-panel .panel-head h3,.dashboard-header h2, p.description, .nav-footer>li>a { 
+	color: #ddd; 
+	text-shadow: none; 
+}
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th { 
+	background-color: #666 !important;
+}
+.table .table, .table-striped>tbody>tr>td {
+    color: white;
+}
+.table .table, .table-striped>tbody>tr:nth-child(even)>td {
+	background-color: #888 !important;
+}
+.table-chrome > thead > tr > th {
+	background-image: linear-gradient(to bottom, #888, #666);
+	color: white !important;
+	text-shadow: none;
+}
+.table-chrome > thead > tr > th:hover {
+	background-image: linear-gradient(to bottom, #666, #444) !important;
+	color: white !important;
+	text-shadow: none;
+}
+.table-chrome .sorts a {
+	text-decoration: none;
+	color: #ddd;
+}
+.highlighted td {
+	background: #aaa !important;
+}
+svg>rect {
+	fill: #333 !important;
+}
+svg text { 
+	fill: #fff !important; 
+}
+.single-value .single-result {
+	color: #fff;
+}
+.splunk-paginator a.selected { 
+	background: #000; 
+}

@@ -1,0 +1,47 @@
+#image_overlay_panel .image{
+    background: transparent 50% 50% no-repeat url('/static/app/simple_xml_examples/splunk_indexing_pipeline.png');
+    min-height: 500px;
+}
+#image_overlay_panel .dashboard-panel  {
+   position: relative;
+   height: 520px;
+}
+#image_overlay_panel .panel-element-row {
+    width: 1200px;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    height: 500px;
+}
+#image_overlay_panel .panel-head,
+#image_overlay_panel .panel-footer {
+    display: none;
+}
+
+#image_overlay_panel .after-label{
+    display: inline-block;
+}
+#image_overlay_panel #parsing_queue {
+   position: absolute;
+   top: 412px;
+   left: 205px;
+}
+
+#image_overlay_panel #merging_queue {
+   position: absolute;
+   top: 412px;
+   left: 428px;
+}
+
+#image_overlay_panel #typing_queue {
+   position: absolute;
+   top: 412px;
+   left: 652px;
+}
+
+#image_overlay_panel #index_queue {
+   position: absolute;
+   top: 412px;
+   left: 867px;
+}
+

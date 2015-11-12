@@ -1,0 +1,33 @@
+.single-value:before {
+    font-family: "Splunk Icons";
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    font-size: 48px;
+}
+.severe.single-value:before {
+    content: "\2297";
+    color: #ff1f24;
+}
+.high.single-value:before {
+    content: "\ECD4";
+    color: #ff7e00;
+}
+.elevated.single-value:before {
+    content: "\26A0";
+    color: #ffb800;
+}
+.low.single-value:before {
+    content: "\ECD3";
+    color: #00b932;
+}
+.guarded.single-value:before {
+    content: "\0049";
+    color: #4da6df;
+}
+.icon-only.single-value:before {
+    font-size: 65px;
+}
+.icon-only .single-result {
+    display: none;
+}

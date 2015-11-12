@@ -18,7 +18,7 @@
       <table>
         <title>Click the IP Address for additional information</title>
         <search>
-          <query>index=homemonitor src_ip=$dest_ip$ | iplocation dest_ip | lookup dnslookup clientip AS dest_ip OUTPUT clienthost | dedup dest_port | table dest_ip rdns_host clienthost protocol direction dest_port City Country</query>
+          <query>index=homemonitor src_ip=$dest_ip$ | iplocation src_ip | lookup dnslookup clientip AS src_ip OUTPUT clienthost | dedup dest_port | table src_ip rdns_host clienthost protocol direction dest_port City Country</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -63,7 +63,7 @@
       <chart>
         <title>Timechart of IP Address</title>
         <search>
-          <query>index=homemonitor dest_ip=$dest_ip$ | timechart count span=15m</query>
+          <query>index=homemonitor src_ip=$dest_ip$ | timechart count span=15m</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -74,7 +74,7 @@
         <option name="charting.axisTitleY2.visibility">visible</option>
         <option name="charting.axisX.scale">linear</option>
         <option name="charting.axisY.scale">linear</option>
-        <option name="charting.axisY2.enabled">false</option>
+        <option name="charting.axisY2.enabled">0</option>
         <option name="charting.axisY2.scale">inherit</option>
         <option name="charting.chart">line</option>
         <option name="charting.chart.nullValueMode">gaps</option>
@@ -88,6 +88,8 @@
         <option name="charting.chart.bubbleMaximumSize">50</option>
         <option name="charting.chart.bubbleMinimumSize">10</option>
         <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
       </chart>
     </panel>
   </row>
