@@ -4,11 +4,9 @@ Splunk app for home | monitor >
 
 Author: Kamilo Amir
 
-<<<<<<< HEAD
-Version: 4.2.2
 =======
 Version: 4.2.3
->>>>>>> origin/master
+
 
 Home Monitor App for Splunk
 
@@ -41,7 +39,9 @@ What's new:
 
 What might need to be done:
 
-I was thinking about creating a setup page, so more advanced users can configure the app to suite their customized networks.  When I get more motivation, I'll work on setting up tags for local networks and a setup page that allows you to change some of the inputs or specify your local network IP address space.
+Create a master list of non-routable IP’s (private IP’s)
+Create Bad IP collection (mongoDB) to keep track of bad IP’s and domains hitting routers.
+
 
 Note:
 
