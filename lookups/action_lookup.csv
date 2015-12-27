@@ -4,3 +4,5 @@ ACCEPT,ACCEPT
 pass,ACCEPT
 block,BLOCK
 DROP,BLOCK
+Accepted,ACCEPT
+Blocked, BLOCK
