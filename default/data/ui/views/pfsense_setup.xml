@@ -5,6 +5,7 @@
         <html>
                 <h1>Scroll Down to see how to configure your pfsense Firewall </h1>
                 <h3>These steps start with the configuring your router then show you how to setup and configure your Splunk instnace to receive the syslog data (UDP 514). </h3>
+               <h3>If the link does not appear below, please click on this link : <a href="http://amiracle19.blogspot.com/p/setting-up-your-pfsense-firewall-with.html">http://amiracle19.blogspot.com/p/setting-up-your-pfsense-firewall-with.html</a></h3>
                 <center>
                   <iframe src="http://amiracle19.blogspot.com/p/setting-up-your-pfsense-firewall-with.html" height="600px" width="100%" style="border:2px;"/>
                 </center>

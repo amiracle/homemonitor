@@ -1,12 +1,19 @@
 <nav>
-     <collection label="Setup">
+     <collection label="Help!">
         <view name="arch" default="true" />
+        <a href="/app/homemonitor/arch?tour=hm_tour_setup">Setup Tour</a>
+        <a href="https://answers.splunk.com/app/questions/1214.html">Splunk Answers</a>
+        <collection label="Setup Blog Posts">
         <view name="troubleshooting" />
+        <view name="stream_for_homemonitor" />  
         <view name="fios_setup" />
         <view name="pfsense_setup" />
-        <view name="stream_for_homemonitor" />
-        <a href="/app/homemonitor/arch?tour=home_|_monitor_>_tour">Setup Tour</a>
+       	<a href="http://amiracle19.blogspot.com/">Home Monitor Blog</a> 
         <a href="mailto:kam@splunk.com?Subject=HomeMonitor">Send Feedback...</a>
+       </collection>
+       <collection label="GitHub">
+         <a href="https://github.com/amiracle/homemonitor">HomeMonitor GitHub Repo</a>
+       </collection>
      </collection>
  	 <collection label="Overview Dashboards">
        <view name="hm_overview" />
@@ -30,10 +37,11 @@
   		<view name="Top_Domains" />
   		<view name="Force_Map" />
     	<view name="Sankey_Map" />
-      <view name="unclassified" />
+        <view name="data_models" />
+        <view name="unclassified" />
+      <view name="homedevices" />
      </collection>
     	<view name="map_of_connections" />
-    	<view name="search" />
-    	<view name="data_models" />
+    	<view name="search" />   	
   <a href="/app/homemonitor/hm_overview?tour=hm_tour_use">User Tour</a>
 </nav>
