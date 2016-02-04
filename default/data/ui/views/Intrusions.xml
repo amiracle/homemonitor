@@ -10,10 +10,6 @@
         <latest>now</latest>
       </default>
     </input>
-    <input type="text" token="local_ip">
-      <label>Local IP Range</label>
-      <default>192.168.*</default>
-    </input>
     <input type="dropdown" token="sourcetype" searchWhenChanged="true">
       <label>Sourcetype</label>
       <search>
@@ -30,7 +26,7 @@
       <table id="master">
         <title>Intrusions</title>
         <search>
-          <query>index=homemonitor  sourcetype=$sourcetype$  src_ip!=$local_ip$ dest_ip=$local_ip$ direction=in |stats dc(src_ip) as count values(src_ip) as src_ip by action2, dest_ip, dest_port | table count src_ip dest_port action2 | sort -count</query>
+          <query>index=homemonitor  sourcetype=$sourcetype$ direction=in action2=ACCEPT | where `dest_ip_private_ip` | where `not_src_ip_private_ip`  | stats dc(src_ip) as count values(src_ip) as src_ip by action2, dest_ip, dest_port | table count src_ip dest_ip dest_port action2 | sort -count</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>

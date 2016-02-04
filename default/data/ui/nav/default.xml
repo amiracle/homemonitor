@@ -15,6 +15,7 @@
          <a href="https://github.com/amiracle/homemonitor">HomeMonitor GitHub Repo</a>
        </collection>
      </collection>
+<view name="bandwidth_overview" />
  	 <collection label="Overview Dashboards">
        <view name="hm_overview" />
        <view name="Intrusions" />

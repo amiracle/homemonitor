@@ -9,10 +9,6 @@
         <latestTime>now</latestTime>
       </default>
     </input>
-    <input type="text" token="local_ip">
-      <label>Local IP Range</label>
-      <default>192.168.*</default>
-    </input>
     <input type="dropdown" token="sourcetype" searchWhenChanged="true">
       <label>Select your sourcetype</label>
       <search>
@@ -29,7 +25,7 @@
       <table>
         <title>List of Bad Domains (Blocked)</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ action2=BLOCK src_ip!=$local_ip$ | lookup dnslookup clientip as src_ip OUTPUT clienthost | rex field=clienthost "(?&lt;Domain&gt;(\d{1,3}.\d{1,3}?|[^\.\s]+?)\.([^\.\s]{1,3}|[^\.\s]{1,3}\.[^\.\s]{1,3}))$$" | stats count as Attempts values(src_port) as "Source Ports" by Domain, protocol  | sort -Attempts</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ action2=BLOCK | where NOT `src_ip_private_ip` |lookup dnslookup clientip as src_ip OUTPUT clienthost | rex field=clienthost "(?&lt;Domain&gt;(\d{1,3}.\d{1,3}?|[^\.\s]+?)\.([^\.\s]{1,3}|[^\.\s]{1,3}\.[^\.\s]{1,3}))$$" | stats count as Attempts values(src_port) as "Source Ports" by Domain, protocol  | sort -Attempts</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -47,7 +43,7 @@
       <table>
         <title>Out-going Blocked Hosts</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ action2=BLOCK dest_ip!=$local_ip$ | lookup dnslookup clientip as dest_ip OUTPUT clienthost as "Blocked Host" | stats sparkline count by "Blocked Host", dest_ip | sort -count</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ action2=BLOCK  | where NOT `dest_ip_private_ip` | lookup dnslookup clientip as dest_ip OUTPUT clienthost as "Blocked Host" | stats sparkline count by "Blocked Host", dest_ip | sort -count</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -67,7 +63,7 @@
       <chart>
         <title>Click IP's for further information</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ action2=BLOCK dest_ip!=$local_ip$ | iplocation src_ip | stats count by  Country</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ action2=BLOCK  | where NOT `dest_ip_private_ip` | iplocation src_ip | stats count by  Country</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -105,7 +101,7 @@
       <table>
         <title>In-coming Blocked Hosts</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ action2=BLOCK src_ip!=$local_ip$ | lookup dnslookup clientip as src_ip OUTPUT clienthost as "Blocked Host" | stats sparkline count by "Blocked Host", src_ip | sort -count</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ action2=BLOCK | where NOT `src_ip_private_ip` | lookup dnslookup clientip as src_ip OUTPUT clienthost as "Blocked Host" | stats sparkline count by "Blocked Host", src_ip | sort -count</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>

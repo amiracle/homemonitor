@@ -1,0 +1,73 @@
+<dashboard>
+  <label>Bandwidth Overview</label>
+  <description>Overview of Bandwidth</description>
+  <row>
+    <panel>
+      <chart>
+        <title>Downloads vs. Uploads</title>
+        <search>
+          <query>sourcetype=bandwidth_test | timechart values(download) AS Downloads, values(upload) AS Uploads</query>
+          <earliest>-4h@m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">zero</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="charting.axisTitleX.text">Time</option>
+        <option name="charting.axisTitleY.text">Mbps</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>Out-going Bandwidth by Destination</title>
+        <search>
+          <query>sourcetype=stream:tcp OR sourcetype=stream:http OR sourcetype=stream:udp | stats sparkline sum(eval(bytes_out/1024/1024)) AS "Outgoing Megabytes" by dest | sort -"Outgoing Megabytes"</query>
+          <earliest>-60m@m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">10</option>
+      </table>
+    </panel>
+    <panel>
+      <table>
+        <title>In-coming Bandwidth by Source</title>
+        <search>
+          <query>sourcetype=stream:tcp OR sourcetype=stream:http OR sourcetype=stream:udp | stats sparkline sum(eval(bytes_in/1024/1024)) AS "Incoming Megabytes" by src | sort -"Incoming Megabytes"</query>
+          <earliest>-60m@m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="wrap">true</option>
+        <option name="rowNumbers">false</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="count">10</option>
+      </table>
+    </panel>
+  </row>
+</dashboard>

@@ -8,10 +8,6 @@
         <latestTime>now</latestTime>
       </default>
     </input>
-    <input type="text" token="local_ip">
-      <label>Local IP Range</label>
-      <default>192.168.*</default>
-    </input>
     <input type="dropdown" token="sourcetype" searchWhenChanged="true">
       <label>Select your sourcetype</label>
       <search>

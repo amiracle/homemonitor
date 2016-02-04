@@ -9,10 +9,6 @@
         <latest>now</latest>
       </default>
     </input>
-    <input type="text" token="local_ip">
-      <label>Local IP Range</label>
-      <default>192.168.*</default>
-    </input>
     <input type="dropdown" token="sourcetype" searchWhenChanged="true">
       <label>Select your sourcetype</label>
       <search>
@@ -26,11 +22,131 @@
   </fieldset>
   <row>
     <panel>
+      <single>
+        <search>
+          <query>index=homemonitor sourcetype=$sourcetype$ | where `not_src_ip_private_ip` | top 1 src_ip | rename src_ip AS myip</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="drilldown">all</option>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="useColors">0</option>
+        <option name="useThousandSeparators">0</option>
+        <option name="linkView">search</option>
+        <option name="rangeColors">["0x65a637","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[0,30,70,100]</option>
+        <option name="trendInterval">auto</option>
+        <option name="underLabel">Your Public IP</option>
+        <drilldown>
+          <link>
+            <![CDATA[https://www.shodan.io/host/$row.myip$]]>
+          </link>
+        </drilldown>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Bandwidth</title>
+      <single>
+        <title>Average Download</title>
+        <search>
+          <query>index=main sourcetype=bandwidth_test | eventstats avg(download) AS avgDownload | table avgDownload</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="drilldown">all</option>
+        <drilldown>
+          <link>/app/homemonitor/bandwidth_overview?form.sourcetype=$sourcetype$</link>
+        </drilldown>
+        <option name="field">count</option>
+        <option name="linkFields">avgDownload, count</option>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0xd93f3c","0xf58f39","0xf7bc38","0x65a637","0x6db7c6"]</option>
+        <option name="rangeValues">[10,20,50,100]</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">auto</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="linkView">search</option>
+        <option name="afterLabel">Mbps</option>
+      </single>
+      <single>
+        <title>Average Upload</title>
+        <search>
+          <query>index=main sourcetype=bandwidth_test | eventstats avg(upload) AS avgUpload | table avgUpload</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="drilldown">all</option>
+        <drilldown>
+          <link>/app/homemonitor/bandwidth_overview?form.sourcetype=$sourcetype$</link>
+        </drilldown>
+        <option name="field">count</option>
+        <option name="linkFields">avgUpload, count</option>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0xd93f3c","0xf58f39","0xf7bc38","0x65a637","0x6db7c6"]</option>
+        <option name="rangeValues">[10,20,50,100]</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">auto</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="linkView">search</option>
+        <option name="afterLabel">Mbps</option>
+      </single>
+      <single>
+        <title>Average Ping</title>
+        <search>
+          <query>index=main sourcetype=bandwidth_test | eventstats avg(ping) AS avgPing | table avgPing</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="drilldown">all</option>
+        <drilldown>
+          <link>/app/homemonitor/bandwidth_overview?form.sourcetype=$sourcetype$</link>
+        </drilldown>
+        <option name="field">count</option>
+        <option name="linkFields">avgPing, count</option>
+        <option name="colorBy">value</option>
+        <option name="colorMode">block</option>
+        <option name="numberPrecision">0</option>
+        <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[20,40,60]</option>
+        <option name="showSparkline">1</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">auto</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="linkView">search</option>
+        <option name="afterLabel">ms</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
       <title>Event Overview</title>
       <single>
         <title>Intrusion Detection</title>
         <search>
-          <query>index=homemonitor  sourcetype=$sourcetype$  src_ip!=$local_ip$ dest_ip=$local_ip$ direction=in |stats dc(src_ip) as count values(src_ip) as src_ip by action2, dest_ip, dest_port | table count</query>
+          <query>index=homemonitor  sourcetype=$sourcetype$  direction=in action2=ACCEPT | where `dest_ip_private_ip` | where `not_src_ip_private_ip` | stats dc(dest_ip) as count | table count</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -165,7 +281,7 @@
       <single>
         <title>Devices on Network</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ src_ip=$local_ip$ | stats dc(src_ip) as count</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ | where `src_ip_private_ip`| stats dc(src_ip) as count</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -188,121 +304,8 @@
         <option name="trendInterval">auto</option>
         <option name="useColors">1</option>
         <option name="useThousandSeparators">1</option>
+        <option name="linkView">search</option>
       </single>
-    </panel>
-  </row>
-  <row>
-    <panel>
-      <title>Map of Connections</title>
-      <map>
-        <title>Total traffic broken down by blocked and accepted action</title>
-        <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ | iplocation src_ip | geostats latfield=lat longfield=lon count by action2</query>
-          <earliest>$time.earliest$</earliest>
-          <latest>$time.latest$</latest>
-        </search>
-        <option name="mapping.data.maxClusters">100</option>
-        <option name="mapping.map.center">(30.810646,-10.556976)</option>
-        <option name="mapping.map.zoom">2</option>
-        <option name="mapping.markerLayer.markerMaxSize">60</option>
-        <option name="mapping.markerLayer.markerMinSize">10</option>
-        <option name="mapping.markerLayer.markerOpacity">0.8</option>
-        <option name="mapping.tileLayer.maxZoom">7</option>
-        <option name="mapping.tileLayer.minZoom">0</option>
-        <option name="mapping.seriesColors">[0x5379af,0x9ac23c,0xf7902b,0x956d95,0x6ab7c7,0xd85d3c,0xfac51c,0xdd86af]</option>
-        <option name="drilldown">all</option>
-        <drilldown>
-          <link>/app/homemonitor/map_of_connections?form.sourcetype=$sourcetype$</link>
-        </drilldown>
-        <option name="mapping.choroplethLayer.colorBins">5</option>
-        <option name="mapping.choroplethLayer.colorMode">auto</option>
-        <option name="mapping.choroplethLayer.maximumColor">0xDB5800</option>
-        <option name="mapping.choroplethLayer.minimumColor">0x2F25BA</option>
-        <option name="mapping.choroplethLayer.neutralPoint">0</option>
-        <option name="mapping.choroplethLayer.shapeOpacity">0.75</option>
-        <option name="mapping.choroplethLayer.showBorder">1</option>
-        <option name="mapping.map.panning">true</option>
-        <option name="mapping.map.scrollZoom">false</option>
-        <option name="mapping.showTiles">1</option>
-        <option name="mapping.tileLayer.tileOpacity">1</option>
-        <option name="mapping.type">marker</option>
-      </map>
-    </panel>
-    <panel>
-      <title>Protocol by Direction</title>
-      <chart>
-        <search>
-          <query>index=homemonitor sourcetype=$sourcetype$  | eval direction=upper(direction) | timechart per_hour(eval(direction="IN")) AS IN, per_hour(eval(direction="OUT")) AS OUT, by protocol</query>
-          <earliest>$time.earliest$</earliest>
-          <latest>$time.latest$</latest>
-        </search>
-        <option name="charting.chart">area</option>
-        <option name="charting.axisY2.enabled">0</option>
-        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
-        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
-        <option name="charting.axisTitleX.text">Time</option>
-        <option name="charting.axisTitleX.visibility">visible</option>
-        <option name="charting.axisTitleY.visibility">visible</option>
-        <option name="charting.axisTitleY2.visibility">visible</option>
-        <option name="charting.axisX.scale">linear</option>
-        <option name="charting.axisY.scale">linear</option>
-        <option name="charting.axisY2.scale">inherit</option>
-        <option name="charting.chart.bubbleMaximumSize">50</option>
-        <option name="charting.chart.bubbleMinimumSize">10</option>
-        <option name="charting.chart.bubbleSizeBy">area</option>
-        <option name="charting.chart.nullValueMode">gaps</option>
-        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
-        <option name="charting.chart.stackMode">default</option>
-        <option name="charting.chart.style">shiny</option>
-        <option name="charting.drilldown">all</option>
-        <drilldown>
-          <link>/app/homemonitor/traffic_flows?form.sourcetype=$sourcetype$</link>
-        </drilldown>
-        <option name="charting.layout.splitSeries">0</option>
-        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
-        <option name="charting.legend.placement">bottom</option>
-        <option name="charting.axisTitleY.text">Events</option>
-        <option name="charting.chart.showDataLabels">none</option>
-        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
-      </chart>
-    </panel>
-    <panel>
-      <title>Blocks vs. Accepts</title>
-      <chart>
-        <search>
-          <query>index=homemonitor sourcetype=$sourcetype$  | timechart per_hour(eval(action2="BLOCK")) AS BLOCK, per_hour(eval(action2="ACCEPT")) AS ACCEPT</query>
-          <earliest>$time.earliest$</earliest>
-          <latest>$time.latest$</latest>
-        </search>
-        <option name="charting.chart">area</option>
-        <option name="charting.axisY2.enabled">0</option>
-        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
-        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
-        <option name="charting.axisTitleX.text">Time</option>
-        <option name="charting.axisTitleX.visibility">visible</option>
-        <option name="charting.axisTitleY.visibility">visible</option>
-        <option name="charting.axisTitleY2.visibility">visible</option>
-        <option name="charting.axisX.scale">linear</option>
-        <option name="charting.axisY.scale">linear</option>
-        <option name="charting.axisY2.scale">inherit</option>
-        <option name="charting.chart.bubbleMaximumSize">50</option>
-        <option name="charting.chart.bubbleMinimumSize">10</option>
-        <option name="charting.chart.bubbleSizeBy">area</option>
-        <option name="charting.chart.nullValueMode">gaps</option>
-        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
-        <option name="charting.chart.stackMode">default</option>
-        <option name="charting.chart.style">shiny</option>
-        <option name="charting.drilldown">all</option>
-        <drilldown>
-          <link>/app/homemonitor/traffic_flows?form.sourcetype=$sourcetype$</link>
-        </drilldown>
-        <option name="charting.layout.splitSeries">0</option>
-        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
-        <option name="charting.legend.placement">bottom</option>
-        <option name="charting.axisTitleY.text">Events</option>
-        <option name="charting.chart.showDataLabels">none</option>
-        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
-      </chart>
     </panel>
   </row>
 </form>

@@ -9,10 +9,6 @@
         <latest>now</latest>
       </default>
     </input>
-    <input type="text" token="local_ip">
-      <label>Local IP Range</label>
-      <default>192.168.*</default>
-    </input>
     <input type="dropdown" token="sourcetype" searchWhenChanged="true">
       <label>Select your sourcetype</label>
       <search>
@@ -29,7 +25,7 @@
       <chart>
         <title>Top Internal Source IP's</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ direction=in src_ip=$local_ip$ | timechart count by src_ip</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ direction=in | where NOT `src_ip_private_ip` | timechart count by src_ip</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -56,17 +52,16 @@
         <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
         <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
         <option name="charting.legend.placement">right</option>
-                <drilldown>
-              <link>/app/homemonitor/device_overview?form.sourcetype=$sourcetype$</link>
-          </drilldown>
-        
+        <drilldown>
+          <link>/app/homemonitor/device_overview?form.sourcetype=$sourcetype$</link>
+        </drilldown>
       </chart>
     </panel>
     <panel>
       <chart>
         <title>Top External Source IP's</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ direction=in src_ip!=$local_ip$ | timechart count by src_ip</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ direction=in |where NOT `src_ip_private_ip` | timechart count by src_ip</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -101,7 +96,7 @@
       <table>
         <title>Source IP Breakdown</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ direction=in src_ip=$local_ip$ | stats sparkline count by src_ip  | sort -count</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ direction=in |where NOT `src_ip_private_ip` | stats sparkline count by src_ip  | sort -count</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -200,7 +195,7 @@
         <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
         <option name="charting.legend.placement">right</option>
         <drilldown>
-              <link>/app/homemonitor/blocked_traffic?form.sourcetype=$sourcetype$</link>
+          <link>/app/homemonitor/blocked_traffic?form.sourcetype=$sourcetype$</link>
         </drilldown>
       </chart>
     </panel>
@@ -210,7 +205,7 @@
       <table>
         <title>Top Countries</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ direction=in src_ip!=$local_ip$ | iplocation src_ip | stats sparkline count by Country, City | sort -count</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ direction=in |where NOT `src_ip_private_ip` | iplocation src_ip | stats sparkline count by Country, City | sort -count</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -220,7 +215,7 @@
         <option name="dataOverlayMode">heatmap</option>
         <option name="count">10</option>
         <drilldown>
-              <link>/app/homemonitor/map_of_connections?form.sourcetype=$sourcetype$</link>
+          <link>/app/homemonitor/map_of_connections?form.sourcetype=$sourcetype$</link>
         </drilldown>
       </table>
     </panel>
@@ -228,13 +223,15 @@
       <table>
         <title>Destination Port Breakdown</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ direction=in src_ip!=$local_ip$ | stats sparkline count by dest_port  | sort -count</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ direction=in |where NOT `src_ip_private_ip` | stats sparkline count by dest_port  | sort -count</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
         <option name="wrap">undefined</option>
         <option name="rowNumbers">undefined</option>
         <option name="drilldown">row</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="count">10</option>
       </table>
     </panel>
   </row>

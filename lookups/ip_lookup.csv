@@ -1,0 +1,6 @@
+clientip, local
+192.168.0.0/16, isLocal
+10.0.0.0/8, isLocal
+172.160.0.0/12, isLocal
+169.254.0.0/16, isLocal
+fc00::/7, isLocal
