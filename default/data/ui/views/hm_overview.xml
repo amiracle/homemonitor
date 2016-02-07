@@ -57,7 +57,7 @@
       <single>
         <title>Average Download</title>
         <search>
-          <query>index=main sourcetype=bandwidth_test | eventstats avg(download) AS avgDownload | table avgDownload</query>
+          <query>index=main sourcetype=bandwidth_test | eventstats avg(Download) AS avgDownload | table avgDownload</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -85,7 +85,7 @@
       <single>
         <title>Average Upload</title>
         <search>
-          <query>index=main sourcetype=bandwidth_test | eventstats avg(upload) AS avgUpload | table avgUpload</query>
+          <query>index=main sourcetype=bandwidth_test | eventstats avg(Upload) AS avgUpload | table avgUpload</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -113,7 +113,7 @@
       <single>
         <title>Average Ping</title>
         <search>
-          <query>index=main sourcetype=bandwidth_test | eventstats avg(ping) AS avgPing | table avgPing</query>
+          <query>index=main sourcetype=bandwidth_test | eventstats avg(Ping) AS avgPing | table avgPing</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -171,7 +171,7 @@
         <option name="linkView">search</option>
       </single>
       <single>
-        <title>Total Number of Events</title>
+        <title>Total Events</title>
         <search>
           <query>index=homemonitor sourcetype=$sourcetype$ | stats count</query>
           <earliest>$time.earliest$</earliest>
@@ -196,6 +196,7 @@
         <option name="trendInterval">auto</option>
         <option name="useColors">1</option>
         <option name="useThousandSeparators">1</option>
+        <option name="linkView">search</option>
       </single>
       <single>
         <title>IN Bound Events</title>

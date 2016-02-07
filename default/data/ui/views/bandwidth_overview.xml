@@ -1,13 +1,23 @@
-<dashboard>
+<form>
   <label>Bandwidth Overview</label>
   <description>Overview of Bandwidth</description>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="time">
+      <label>Time</label>
+      <default>
+        <earliest>-60m@m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
   <row>
     <panel>
+      <title>Average Downloads vs. Average Uploads</title>
       <chart>
-        <title>Downloads vs. Uploads</title>
+        <title>Last 24 Hours</title>
         <search>
-          <query>sourcetype=bandwidth_test | timechart values(download) AS Downloads, values(upload) AS Uploads</query>
-          <earliest>-4h@m</earliest>
+          <query>index=main sourcetype=bandwidth_test | timechart avg(Download) AS Download , avg(Upload) AS Upload</query>
+          <earliest>-24h@h</earliest>
           <latest>now</latest>
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
@@ -44,8 +54,8 @@
         <title>Out-going Bandwidth by Destination</title>
         <search>
           <query>sourcetype=stream:tcp OR sourcetype=stream:http OR sourcetype=stream:udp | stats sparkline sum(eval(bytes_out/1024/1024)) AS "Outgoing Megabytes" by dest | sort -"Outgoing Megabytes"</query>
-          <earliest>-60m@m</earliest>
-          <latest>now</latest>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
         </search>
         <option name="wrap">true</option>
         <option name="rowNumbers">false</option>
@@ -59,8 +69,8 @@
         <title>In-coming Bandwidth by Source</title>
         <search>
           <query>sourcetype=stream:tcp OR sourcetype=stream:http OR sourcetype=stream:udp | stats sparkline sum(eval(bytes_in/1024/1024)) AS "Incoming Megabytes" by src | sort -"Incoming Megabytes"</query>
-          <earliest>-60m@m</earliest>
-          <latest>now</latest>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
         </search>
         <option name="wrap">true</option>
         <option name="rowNumbers">false</option>
@@ -70,4 +80,4 @@
       </table>
     </panel>
   </row>
-</dashboard>
+</form>

@@ -22,6 +22,8 @@ import math
 import signal
 import socket
 import timeit
+import time
+import datetime
 import platform
 import threading
 
@@ -32,6 +34,8 @@ user_agent = None
 source = None
 shutdown_event = None
 scheme = 'http'
+ts = time.time()
+date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
 
 # Used for bound_interface
 socket_socket = socket.socket
@@ -705,7 +709,8 @@ def speedtest():
         print_(('Hosted by %(sponsor)s (%(name)s) [%(d)0.2f km]: '
                '%(latency)s ms' % best).encode('utf-8', 'ignore'))
     else:
-        print_('Ping: %(latency)s ms' % best)
+	print date
+        print_('Ping=%(latency)s ms' % best)
 
     sizes = [350, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000]
     urls = []
@@ -718,7 +723,7 @@ def speedtest():
     dlspeed = downloadSpeed(urls, args.simple)
     if not args.simple:
         print_()
-    print_('Download: %0.2f M%s/s' %
+    print_('Download=%0.2f M%s/s' %
            ((dlspeed / 1000 / 1000) * args.units[1], args.units[0]))
 
     sizesizes = [int(.25 * 1000 * 1000), int(.5 * 1000 * 1000)]
@@ -731,7 +736,7 @@ def speedtest():
     ulspeed = uploadSpeed(best['url'], sizes, args.simple)
     if not args.simple:
         print_()
-    print_('Upload: %0.2f M%s/s' %
+    print_('Upload=%0.2f M%s/s' %
            ((ulspeed / 1000 / 1000) * args.units[1], args.units[0]))
 
     if args.share and args.mini:

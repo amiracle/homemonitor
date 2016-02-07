@@ -25,7 +25,7 @@
       <chart>
         <title>Top Internal Source IP's</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ direction=in | where NOT `src_ip_private_ip` | timechart count by src_ip</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ direction=in | where NOT `src_ip_private_ip` | timechart count by src_ip, useother=false, usenull=false</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -61,7 +61,7 @@
       <chart>
         <title>Top External Source IP's</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ direction=in |where NOT `src_ip_private_ip` | timechart count by src_ip</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ direction=in | where `not_src_ip_private_ip` | timechart count by src_ip, useother=false, usenull=false</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
