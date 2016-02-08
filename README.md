@@ -5,7 +5,7 @@ Splunk app for home | monitor >
 Author: Kamilo Amir
 
 <<<<<<< HEAD
-Version: 4.4.1
+Version: 4.4.2
 =======
 
 >>>>>>> 5b8df2b7dc93cf22083d6b143e1b797a7bb5ac91
