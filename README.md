@@ -4,24 +4,16 @@ Splunk app for home | monitor >
 
 Author: Kamilo Amir
 
-<<<<<<< HEAD
-Version: 4.4.2
+Version: 4.5.0
 =======
-
->>>>>>> 5b8df2b7dc93cf22083d6b143e1b797a7bb5ac91
-
 Home Monitor App for Splunk
 
 App Location: https://apps.splunk.com/app/1214/
+Wiki : https://github.com/amiracle/homemonitor/wiki/Welcome-to-the-home-monitor-app-for-Splunk-wiki
+Blog posts : http://amiracle19.blogspot.com/2012/09/home-monitor-for-splunk-v10.html
 
 Welcome to Home Monitor for Splunk! This tool will allow you to visualize the traffic that is coming to your home modem (DSL, FiOS or other).  You only have to point the syslog information to your instance of Splunk and you'll be able to immediately be able to see the data flowing in. The contents of this repository include the setup screen shots located in the html and img directories.  Please use them as a quick reference guide in setting up your Verizon FiOS router.  
 
-
-Follow the blog posts at http://amiracle19.blogspot.com/2012/09/home-monitor-for-splunk-v10.html
-=======
-Check out http://amiracle19.blogspot.com/2012/09/home-monitor-for-splunk-v10.html for assistance on setting up your router.
-
-=======
 How this app works:
 
 This version of the app can either rely on your router's hostname to configure the sourcetype, or you can select it manually on the Data Inputs page. For example, if you have a fios router, and the hostname is fios, then the props.conf and transforms.conf will work together to change the sourcetype to fios.  (The reason I did this was that it helepd during my testing having Splunk automatically pickup and change the sourcetype on the fly for me.)
@@ -39,11 +31,11 @@ What's new:
 
 4) New support for pfSense 2.2.x - This will now support pfSense firewalls version 2.2.1 and beyond with the latest version of logging.  The older version of pfSense firewalls will no longer be supported.
 
-What might need to be done:
+5) Added new Macros that help with private IP's for both source and destination IP addresses.
 
-Create a master list of non-routable IP’s (private IP’s)
+Wishlist :
+
 Create Bad IP collection (mongoDB) to keep track of bad IP’s and domains hitting routers.
-
 
 Note:
 
