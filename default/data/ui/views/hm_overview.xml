@@ -1,6 +1,6 @@
 <form>
   <label>Home Network Overview</label>
-  <description>This Dashboard will launch you into the three sections. The top gives you an overview of your events and connections in your network. The second section is a map of connections split by blocked and accepted connections. The last dashboards break down the types of events in your network. Click on any of the values to drilldown into additional dashboards.</description>
+<description>This overview dashboard will show you your IP Address, the activites happening on your network and an overview of your network bandwidth. Each section will take you to a more in-depth view of each catagory.</description>
   <fieldset submitButton="true" autoRun="true">
     <input type="time" token="time" searchWhenChanged="true">
       <label>Select Timespan</label>

@@ -1,28 +1,49 @@
 <setup>
-<block title="">
+<block title="List of Supported Devices">
 <text>Make sure you type this in lower case and all one word. Here is a list of the supported router types:</text>
 <text>asus</text>
-<text>pfsense</text>
-<text>linksys</text>
-<text>openwrt</text>
 <text>dd-wrt</text>
 <text>fios</text>
-<text>netgear</text>
-<text>skyhub</text>
+<text>linksys</text>
 <text>mikro</text>
+<text>netgear</text>
+<text>openwrt</text>
+<text>pfsense</text>
+<text>quantum</text>
+<text>sophos</text>
+<text>skyhub</text>
+<text>tomato</text>
 </block>
-<block title="Add new inputs for your modem or device" endpoint="data/inputs/udp/" entity="514">
-<text>The system defaults to 'syslog,' in which case Splunk will use your modem's hostname to determine the sourcetype that should be used.</text>
-<input field="sourcetype"> 
-<label>What brand is your home router?</label>
+
+<block title="Enter the hostname of your modem, router or firewall" endpoint="data/transforms/extractions/" entity="yourdevice">
+<input field="REGEX">
+<label>Hostname:</label>
+<type>text</type>
+</input>
+<input field="FORMAT">
+<label>Only replace the 'yourdevice' text with your device type:</label>
 <type>text</type>
 </input>
 </block>
+
 <block title="Enable the UDP input" endpoint="data/inputs/udp/" entity="514">
-<text>Enable UDP 514</text>
+<text>Enable UDP 514 syslog, Splunk must run as root for Mac or Linux to listen on this port.</text>
 <input field="disabled">
 <label>Disabled, please uncheck to enable.</label>
 <type>bool</type>
+</input>
+</block>
+
+<block title="Enable bandwidth tests" endpoint="data/inputs/script/" entity=".%252Fbin%252Fspeedtest.sh">
+<text>Enable Linux or Mac Bandwidth Test</text>
+<input field="disabled">
+<label>Disabled, please uncheck to enable.</label>
+<type>bool</type>
+</input>
+<text>Interval for script default is 30 minutes or 1800 seconds</text>
+<input field="interval">
+<label>Time in seconds</label>
+<type>text</type>
 </input>
 </block>
 </setup>
