@@ -13,12 +13,18 @@
   <row>
     <panel>
       <title>Average Downloads vs. Average Uploads</title>
-      <chart>
-        <title>Last 24 Hours</title>
-        <search>
-          <query>index=main sourcetype=bandwidth_test | timechart avg(Download) AS Download , avg(Upload) AS Upload</query>
+      <input type="time" token="avgTime">
+        <label>Average Time</label>
+        <default>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
+        </default>
+      </input>
+      <chart>
+        <search>
+          <query>index=main sourcetype=bandwidth_test | timechart avg(Download) AS Download , avg(Upload) AS Upload, avg(Ping) AS Ping</query>
+          <earliest>$avgTime.earliest$</earliest>
+          <latest>$avgTime.latest$</latest>
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
         <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>

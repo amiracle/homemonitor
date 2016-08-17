@@ -34,7 +34,7 @@
 </input>
 </block>
 
-<block title="Enable bandwidth tests" endpoint="data/inputs/script/" entity=".%252Fbin%252Fspeedtest.sh">
+<block title="Enable Linux bandwidth tests" endpoint="data/inputs/script/" entity=".%252Fbin%252Fspeedtest.sh">
 <text>Enable Linux or Mac Bandwidth Test</text>
 <input field="disabled">
 <label>Disabled, please uncheck to enable.</label>
@@ -46,4 +46,20 @@
 <type>text</type>
 </input>
 </block>
+
+<!--
+<block title="Enable Windows bandwidth tests" endpoint="data/inputs/script/" entity="%24SPLUNK_HOME%5Cetc%5Capps%5Chomemonitor%5Cbin%5Cspeedtest.bat">
+<text>Enable Windows Bandwidth Test</text>
+<input field="disabled">
+<label>Disabled, please uncheck to enable.</label>
+<type>bool</type>
+</input>
+<text>Interval for script default is 30 minutes or 1800 seconds</text>
+<input field="interval">
+<label>Time in seconds</label>
+<type>text</type>
+</input>
+</block>
+-->
+
 </setup>

@@ -1,6 +1,6 @@
 <form>
   <label>Home Network Overview</label>
-<description>This overview dashboard will show you your IP Address, the activites happening on your network and an overview of your network bandwidth. Each section will take you to a more in-depth view of each catagory.</description>
+  <description>This overview dashboard will show you your IP Address, the activites happening on your network and an overview of your network bandwidth. Each section will take you to a more in-depth view of each catagory.</description>
   <fieldset submitButton="true" autoRun="true">
     <input type="time" token="time" searchWhenChanged="true">
       <label>Select Timespan</label>
@@ -45,7 +45,7 @@
         <option name="underLabel">Your Public IP</option>
         <drilldown>
           <link>
-            <![CDATA[https://www.shodan.io/host/$row.myip$]]>
+            <![CDATA[https://ipinfo.io/$row.myip$]]>
           </link>
         </drilldown>
       </single>
@@ -57,7 +57,7 @@
       <single>
         <title>Average Download</title>
         <search>
-          <query>index=main sourcetype=bandwidth_test | eventstats avg(Download) AS avgDownload | table avgDownload</query>
+          <query>index=main sourcetype=bandwidth_test | timechart avg(Download) as avgDownload</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -67,7 +67,7 @@
         </drilldown>
         <option name="field">count</option>
         <option name="linkFields">avgDownload, count</option>
-        <option name="colorBy">value</option>
+        <option name="colorBy">trend</option>
         <option name="colorMode">block</option>
         <option name="numberPrecision">0</option>
         <option name="rangeColors">["0xd93f3c","0xf58f39","0xf7bc38","0x65a637","0x6db7c6"]</option>
@@ -75,17 +75,18 @@
         <option name="showSparkline">1</option>
         <option name="showTrendIndicator">1</option>
         <option name="trendColorInterpretation">standard</option>
-        <option name="trendDisplayMode">absolute</option>
-        <option name="trendInterval">auto</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-30m</option>
         <option name="useColors">1</option>
         <option name="useThousandSeparators">1</option>
         <option name="linkView">search</option>
         <option name="afterLabel">Mbps</option>
+        <option name="unitPosition">after</option>
       </single>
       <single>
         <title>Average Upload</title>
         <search>
-          <query>index=main sourcetype=bandwidth_test | eventstats avg(Upload) AS avgUpload | table avgUpload</query>
+          <query>index=main sourcetype=bandwidth_test | timechart avg(Upload) AS avgUpload</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -95,7 +96,7 @@
         </drilldown>
         <option name="field">count</option>
         <option name="linkFields">avgUpload, count</option>
-        <option name="colorBy">value</option>
+        <option name="colorBy">trend</option>
         <option name="colorMode">block</option>
         <option name="numberPrecision">0</option>
         <option name="rangeColors">["0xd93f3c","0xf58f39","0xf7bc38","0x65a637","0x6db7c6"]</option>
@@ -103,17 +104,18 @@
         <option name="showSparkline">1</option>
         <option name="showTrendIndicator">1</option>
         <option name="trendColorInterpretation">standard</option>
-        <option name="trendDisplayMode">absolute</option>
-        <option name="trendInterval">auto</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-30m</option>
         <option name="useColors">1</option>
         <option name="useThousandSeparators">1</option>
         <option name="linkView">search</option>
         <option name="afterLabel">Mbps</option>
+        <option name="unitPosition">after</option>
       </single>
       <single>
         <title>Average Ping</title>
         <search>
-          <query>index=main sourcetype=bandwidth_test | eventstats avg(Ping) AS avgPing | table avgPing</query>
+          <query>index=main sourcetype=bandwidth_test | timechart avg(Ping) AS avgPing</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -123,20 +125,21 @@
         </drilldown>
         <option name="field">count</option>
         <option name="linkFields">avgPing, count</option>
-        <option name="colorBy">value</option>
+        <option name="colorBy">trend</option>
         <option name="colorMode">block</option>
         <option name="numberPrecision">0</option>
         <option name="rangeColors">["0x65a637","0xf7bc38","0xf58f39","0xd93f3c"]</option>
         <option name="rangeValues">[20,40,60]</option>
         <option name="showSparkline">1</option>
         <option name="showTrendIndicator">1</option>
-        <option name="trendColorInterpretation">standard</option>
-        <option name="trendDisplayMode">absolute</option>
-        <option name="trendInterval">auto</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-30m</option>
         <option name="useColors">1</option>
         <option name="useThousandSeparators">1</option>
         <option name="linkView">search</option>
         <option name="afterLabel">ms</option>
+        <option name="unitPosition">after</option>
       </single>
     </panel>
   </row>
@@ -146,7 +149,7 @@
       <single>
         <title>Intrusion Detection</title>
         <search>
-          <query>index=homemonitor  sourcetype=$sourcetype$  direction=in action2=ACCEPT | where `dest_ip_private_ip` | where `not_src_ip_private_ip` | stats dc(dest_ip) as count | table count</query>
+          <query>index=homemonitor  sourcetype=$sourcetype$  direction=in action2=ACCEPT | where `dest_ip_private_ip` | where `not_src_ip_private_ip` | timechart dc(dest_ip)</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -159,7 +162,7 @@
         <option name="colorBy">value</option>
         <option name="colorMode">block</option>
         <option name="numberPrecision">0</option>
-        <option name="rangeColors">["0x65a637","0xd93f3c"]</option>
+        <option name="rangeColors">["0x65a637","0xd93f3c","0x555555"]</option>
         <option name="rangeValues">[0,1]</option>
         <option name="showSparkline">1</option>
         <option name="showTrendIndicator">1</option>
@@ -169,11 +172,12 @@
         <option name="useColors">1</option>
         <option name="useThousandSeparators">1</option>
         <option name="linkView">search</option>
+        <option name="unitPosition">after</option>
       </single>
       <single>
         <title>Total Events</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ | stats count</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ | timechart count</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -192,16 +196,17 @@
         <option name="showSparkline">1</option>
         <option name="showTrendIndicator">1</option>
         <option name="trendColorInterpretation">standard</option>
-        <option name="trendDisplayMode">absolute</option>
-        <option name="trendInterval">auto</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-5m</option>
         <option name="useColors">1</option>
         <option name="useThousandSeparators">1</option>
         <option name="linkView">search</option>
+        <option name="unitPosition">after</option>
       </single>
       <single>
         <title>IN Bound Events</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$  direction=in | stats count</query>
+          <query>index=homemonitor sourcetype=$sourcetype$  direction=in | timechart count</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -212,23 +217,25 @@
           <link>/app/homemonitor/network_overview_in_bound_traffic?form.sourcetype=$sourcetype$</link>
         </drilldown>
         <option name="linkFields">underlabel, result</option>
-        <option name="colorBy">value</option>
+        <option name="colorBy">trend</option>
         <option name="colorMode">block</option>
         <option name="numberPrecision">0</option>
         <option name="rangeColors">["0x65a637","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
         <option name="rangeValues">[3000,6000,9000,10000]</option>
         <option name="showSparkline">1</option>
         <option name="showTrendIndicator">1</option>
-        <option name="trendColorInterpretation">standard</option>
-        <option name="trendDisplayMode">absolute</option>
-        <option name="trendInterval">auto</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-5m</option>
         <option name="useColors">1</option>
         <option name="useThousandSeparators">1</option>
+        <option name="unitPosition">after</option>
+        <option name="linkView">search</option>
       </single>
       <single>
         <title>OUT Bound Events</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ direction=out | stats count</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ direction=out | timechart count</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -239,23 +246,25 @@
           <link>/app/homemonitor/network_overview_out_bound_traffic?form.sourcetype=$sourcetype$</link>
         </drilldown>
         <option name="linkFields">underlabel, result</option>
-        <option name="colorBy">value</option>
+        <option name="colorBy">trend</option>
         <option name="colorMode">block</option>
         <option name="numberPrecision">0</option>
         <option name="rangeColors">["0x65a637","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
         <option name="rangeValues">[1000,3000,6000,10000]</option>
         <option name="showSparkline">1</option>
         <option name="showTrendIndicator">1</option>
-        <option name="trendColorInterpretation">standard</option>
-        <option name="trendDisplayMode">absolute</option>
-        <option name="trendInterval">auto</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-5m</option>
         <option name="useColors">1</option>
         <option name="useThousandSeparators">1</option>
+        <option name="unitPosition">after</option>
+        <option name="linkView">search</option>
       </single>
       <single>
         <title>Blocked Events</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ action2=BLOCK | stats count</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ action2=BLOCK | timechart count</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -266,23 +275,25 @@
         <option name="classField">range</option>
         <option name="drilldown">all</option>
         <option name="linkFields">underlabel, result</option>
-        <option name="colorBy">value</option>
+        <option name="colorBy">trend</option>
         <option name="colorMode">block</option>
         <option name="numberPrecision">0</option>
         <option name="rangeColors">["0x65a637","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
         <option name="rangeValues">[100,300,700,1000]</option>
         <option name="showSparkline">1</option>
         <option name="showTrendIndicator">1</option>
-        <option name="trendColorInterpretation">standard</option>
-        <option name="trendDisplayMode">absolute</option>
-        <option name="trendInterval">auto</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-5m</option>
         <option name="useColors">1</option>
         <option name="useThousandSeparators">1</option>
+        <option name="unitPosition">after</option>
+        <option name="linkView">search</option>
       </single>
       <single>
         <title>Devices on Network</title>
         <search>
-          <query>index=homemonitor sourcetype=$sourcetype$ | where `src_ip_private_ip`| stats dc(src_ip) as count</query>
+          <query>index=homemonitor sourcetype=$sourcetype$ | where `src_ip_private_ip`| timechart dc(src_ip)</query>
           <earliest>$time.earliest$</earliest>
           <latest>$time.latest$</latest>
         </search>
@@ -293,19 +304,20 @@
         <option name="classField">range</option>
         <option name="drilldown">all</option>
         <option name="linkFields">underlabel, result</option>
-        <option name="colorBy">value</option>
+        <option name="colorBy">trend</option>
         <option name="colorMode">block</option>
         <option name="numberPrecision">0</option>
         <option name="rangeColors">["0x65a637","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
         <option name="rangeValues">[100,300,700,1000]</option>
         <option name="showSparkline">1</option>
         <option name="showTrendIndicator">1</option>
-        <option name="trendColorInterpretation">standard</option>
-        <option name="trendDisplayMode">absolute</option>
-        <option name="trendInterval">auto</option>
+        <option name="trendColorInterpretation">inverse</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-5m</option>
         <option name="useColors">1</option>
         <option name="useThousandSeparators">1</option>
         <option name="linkView">search</option>
+        <option name="unitPosition">after</option>
       </single>
     </panel>
   </row>
