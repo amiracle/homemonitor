@@ -45,6 +45,3 @@ If you're going to make changes to the default dashbaords and reports, you can p
 Thanks to everyone for your input and feedback, please keep it coming! You are all helping make this app what it is today.
 
 -Kamilo "Kam" Amir
- ####
- Fork 11/17/2017 to update OpenVPN field extraction regex, build snort regex and dashboard.
- SEB.
