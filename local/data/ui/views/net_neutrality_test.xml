@@ -1,0 +1,113 @@
+<dashboard>
+  <label>Net Neutrality Test</label>
+  <description>Dashboard of Net Neutrality tests using the neubot agent (http://www.neubot.org) from MLab.</description>
+  <search id="BT">
+    <query>index=homemonitor sourcetype="ajit-pi" neubot_test=BitTorrent</query>
+  </search>
+  <row>
+    <panel>
+      <title>BitTorrent Test</title>
+      <single>
+        <title>Upload Speeds</title>
+        <search>
+          <query>index=homemonitor sourcetype="neubot" neubot_test=BitTorrent "upload speed" | rex field=neubot_results "upload speed: (?&lt;upload_speed&gt;\d+)" | stats avg(upload_speed) AS Average</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="unit">Mbit/s</option>
+      </single>
+      <single>
+        <title>Download Speeds</title>
+        <search>
+          <query>index=homemonitor sourcetype="neubot" neubot_test=BitTorrent down* | rex field=neubot_results "bytes ... (?&lt;download_speed&gt;\d+)" | stats avg(download_speed) as Average</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="unit">Mbit/s</option>
+      </single>
+      <single>
+        <title>Latency</title>
+        <search>
+          <query>index=homemonitor sourcetype="neubot"  neubot_test=BitTorrent  ms | rex field=neubot_results "done,\s+(?&lt;ms&gt;\d.\d)" | stats avg(ms)</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="unit">ms</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>RAW Test</title>
+      <single>
+        <title>Raw Speed Test</title>
+        <search>
+          <query>index=homemonitor sourcetype="neubot" neubot_test=raw_clnt goodput* | rex field=neubot_results "goodput: (?&lt;raw_speed&gt;\d+)" | stats avg(raw_speed) AS Average</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="unit">Mbit/s</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Dash Test</title>
+      <single>
+        <title>Latency</title>
+        <search>
+          <query>index=homemonitor sourcetype="neubot" neubot_test=dash latency | rex field=neubot_results "latency (?&lt;latency&gt;\d+)" | table latency</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="unit">ms</option>
+      </single>
+      <single>
+        <title>Rate Test</title>
+        <search>
+          <query>index=homemonitor sourcetype="neubot" neubot_test=dash rate "*15]*" | rex field=neubot_results "^[^:\n]*:\s+(?P&lt;rate&gt;\d+)[^:\n]*:\s+(?P&lt;speed&gt;[^ ]+)[^:\n]*:\s+(?P&lt;elapsed&gt;[^ ]+)" | stats avg(rate) as Avg_Rate | table Avg_Rate</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="refresh.display">progressbar</option>
+        <option name="unit">Kbit/s</option>
+      </single>
+      <single>
+        <title>Speed Test</title>
+        <search>
+          <query>index=homemonitor sourcetype="neubot" neubot_test=dash rate "*15]*" | rex field=neubot_results "^[^:\n]*:\s+(?P&lt;rate&gt;\d+)[^:\n]*:\s+(?P&lt;speed&gt;[^ ]+)[^:\n]*:\s+(?P&lt;elapsed&gt;[^ ]+)" | stats avg(speed) as Avg_Speed | table Avg_Speed</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="refresh.display">progressbar</option>
+        <option name="unit">Kbit/s</option>
+      </single>
+      <single>
+        <title>Elapsed Time</title>
+        <search>
+          <query>index=homemonitor sourcetype="neubot" neubot_test=dash rate "*15]*" | rex field=neubot_results "^[^:\n]*:\s+(?P&lt;rate&gt;\d+)[^:\n]*:\s+(?P&lt;speed&gt;[^ ]+)[^:\n]*:\s+(?P&lt;elapsed&gt;[^ ]+)" | stats avg(elapsed) as Avg_Elapsed |  table Avg_Elapsed</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+        <option name="numberPrecision">0.0000</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="unit">s</option>
+      </single>
+    </panel>
+  </row>
+</dashboard>

@@ -3,7 +3,7 @@ Splunk app for home | monitor >
 
 Author: Kamilo Amir
 
-Version: 4.5.1
+Version: 5.0.0
 =======
 Home Monitor App for Splunk
 
@@ -22,15 +22,11 @@ Once the data input is in (more on that below), you will be able to see all of t
 
 What's new:
 
-1) Data Input - When onboarding your data source, you'll need to first enable the Data Input and then decide if you want to Splunk automatically sourcetype your data based on your router's hostname.  You can also manually change the sourcetype to fios, asus, pfsense, netgear or skyhub.
+1) Created indexes macro so people can either use their own index or keep the data in the main index. Update the `homemonitor_index` macro to include or remove indexes.
 
-2) Lookup - The lookup, action_lookup.csv, is meant to help normalize the action of the firewall so that all the dashboards will populate regardless of what router you have.
+2) Added support for the 'Ajit-Pi Project' to help monitor for the impact of net neutrality on your local network. 
 
-3) New updated dashboards - I've gone through and vetted all the dashboards to make sure they make some logical sense.  I stopped using the 'process' field since it did not exist in all the routers syslog data.  Instead, I determined that outbound connections were iniated by src_ip = 192.168.* and inbound connections were iniated by NOT src_ip=192.168.* .
-
-4) New support for pfSense 2.2.x - This will now support pfSense firewalls version 2.2.1 and beyond with the latest version of logging.  The older version of pfSense firewalls will no longer be supported.
-
-5) Added new Macros that help with private IP's for both source and destination IP addresses.
+3) Created TA_HomeMonitor for distributed environments, this will allow users to have the TA's collect data from their forwarders / syslog servers and send them into their Splunk servers. 
 
 Wishlist :
 

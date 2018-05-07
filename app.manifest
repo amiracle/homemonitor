@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "2.0.0", 
+  "info": {
+    "title": "home | monitor > 5.0.0", 
+    "id": {
+      "group": null, 
+      "name": "homemonitor", 
+      "version": "5.0.0"
+    }, 
+    "author": [
+      {
+        "name": "Kamilo Amir", 
+        "email": null, 
+        "company": null
+      }
+    ], 
+    "releaseDate": null, 
+    "description": "Home Monitor offers a simple view into your home network traffic based on the syslog data being gathered from your home router.", 
+    "classification": {
+      "intendedAudience": null, 
+      "categories": [], 
+      "developmentStatus": null
+    }, 
+    "commonInformationModels": null, 
+    "license": {
+      "name": null, 
+      "text": null, 
+      "uri": null
+    }, 
+    "privacyPolicy": {
+      "name": null, 
+      "text": null, 
+      "uri": null
+    }, 
+    "releaseNotes": {
+      "name": null, 
+      "text": "./README.md", 
+      "uri": null
+    }
+  }, 
+  "dependencies": null, 
+  "tasks": null, 
+  "inputGroups": null, 
+  "incompatibleApps": null, 
+  "platformRequirements": null, 
+  "supportedDeployments": [
+    "_standalone", 
+    "_distributed"
+  ], 
+  "targetWorkloads": null
+}

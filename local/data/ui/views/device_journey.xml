@@ -1,0 +1,129 @@
+<form>
+  <label>Device Journey</label>
+  <description>Track your device's network journey</description>
+  <fieldset submitButton="false" autoRun="true">
+    <input type="time" token="time">
+      <label>Time Span</label>
+      <default>
+        <earliest>-60m@m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="dropdown" token="sourcetype">
+      <label>Sourcetype</label>
+      <fieldForLabel>sourcetype</fieldForLabel>
+      <fieldForValue>sourcetype</fieldForValue>
+      <search>
+        <query>index=homemonitor | stats count by sourcetype</query>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Internal Devices On Network</title>
+      <input type="dropdown" token="location">
+        <label>Internal vs. External</label>
+        <choice value="`src_ip_private_ip`">Internal</choice>
+        <choice value="`not_src_ip_private_ip`">External</choice>
+        <default>`src_ip_private_ip`</default>
+      </input>
+      <chart>
+        <title>Click on any of the charts for additional information captured by Splunk Stream</title>
+        <search>
+          <query>index=homemonitor sourcetype=$sourcetype$  |  where $location$ | timechart dc(dest_ip) by src_ip usenull=false, useother=false</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisTitleY2.visibility">collapsed</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="trellis.enabled">1</option>
+        <option name="trellis.scales.shared">0</option>
+        <option name="trellis.size">medium</option>
+        <option name="trellis.splitBy">src_ip</option>
+        <drilldown>
+          <set token="new_src_ip">$trellis.value$</set>
+        </drilldown>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Overall Network Traffic</title>
+      <single>
+        <title>Total Network Bandwidth for $new_src_ip$</title>
+        <search>
+          <query>index=main source=stream:ip $new_src_ip$  | stats sum(bytes) as Bytes  | eval GB=Bytes/1024/1024/1024 | table GB</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="numberPrecision">0.000</option>
+        <option name="underLabel">Bandwidth</option>
+        <option name="unit">GB</option>
+        <option name="useColors">1</option>
+      </single>
+      <chart>
+        <title>Low Bandwidth Applications</title>
+        <search>
+          <query>index=main source="stream:Splunk_Tcp" OR source="stream:Splunk_Udp"  | stats sum(sum(bytes)) as Bytes by app | sort + Bytes | head 10 | rename app AS "Application" | table Application, Bytes</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.chart">pie</option>
+      </chart>
+      <chart>
+        <title>High Bandwidth Applications</title>
+        <search>
+          <query>index=main source="stream:Splunk_Tcp" OR source="stream:Splunk_Udp"  | stats sum(sum(bytes)) as Bytes by app | sort - Bytes | head 10 | rename app AS "Application" | table Application, Bytes</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="charting.chart">pie</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Internal Results</title>
+      <table>
+        <title>Device Protocol Breakdown</title>
+        <search>
+          <query>index=main  sourcetype="stream:ip" $new_src_ip$ | eventstats sum(bytes_in) AS "Bytes" | eval MB=Bytes/1024/1024 | stats count,values(protocol_stack) AS "Protocols" by  MB | sort -MB</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+      </table>
+      <table>
+        <title>DNS Queries</title>
+        <search>
+          <query>sourcetype=stream:dns src_ip=$new_src_ip$ | stats count,values(query{}) by src_ip</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+        </search>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <single>
+        <title>Status</title>
+        <search>
+          <query>index=homemonitor sourcetype=$sourcetype$  |  where $location$ | stats dc(dest_port) by src_ip</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+        </search>
+        <option name="colorMode">block</option>
+        <option name="drilldown">all</option>
+        <option name="trellis.enabled">1</option>
+        <option name="trellis.size">small</option>
+        <option name="useColors">1</option>
+      </single>
+    </panel>
+  </row>
+</form>

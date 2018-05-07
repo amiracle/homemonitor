@@ -1,0 +1,261 @@
+[inputs/script%3A%2F%2F.%2Fbin%2Fspeedtest.sh]
+version = 6.5.2
+modtime = 1490362852.188781000
+
+[transforms/yourdevice]
+version = 6.5.2
+modtime = 1490362852.238837000
+
+[app/install/is_configured]
+version = 6.5.2
+modtime = 1490362852.292116000
+
+[views/device_overview]
+version = 7.0.0
+modtime = 1507513246.619791000
+
+[views/network_overview_in_bound_traffic]
+version = 6.5.3
+modtime = 1491011216.881421000
+
+[views/device_journey]
+export = none
+owner = admin
+version = 6.6.2
+modtime = 1500946284.784551000
+
+[nav/default]
+version = 7.0.0
+modtime = 1515383972.987789000
+
+[views/hm_overview]
+version = 7.0.0
+modtime = 1515448737.411527000
+
+[indexes/homemonitor]
+version = 6.6.2
+modtime = 1499005150.653309000
+
+[props/pfsense/EXTRACT-application]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493836830.884354000
+
+[props/pfsense/EXTRACT-ip_spec4]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493836836.820935000
+
+[props/pfsense/EXTRACT-ip_spec6]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493836842.746867000
+
+[props/pfsense/REPORT-ipv4-pf]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493836859.250567000
+
+[props/pfsense/REPORT-ipv4-tcp]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493836866.012005000
+
+[props/pfsense/EXTRACT-openvpn_session_id%2Csrc_ip_openvpn%2Csrc_port_openvpn%2Cauth_user]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493836969.014113000
+
+[props/pfsense/EXTRACT-nat_ip%2Cnat_mac%2Cnat_hostname]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837033.324777000
+
+[props/pfsense/REPORT-ipv4-udp]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837059.204563000
+
+[props/pfsense/REPORT-common-pf]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837069.947566000
+
+[props/pfsense/REPORT-icmp]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837075.274905000
+
+[props/pfsense/EXTRACT-rule_number]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837082.844821000
+
+[props/pfsense/REPORT-carp]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837087.503011000
+
+[props/pfsense/EXTRACT-openvpn_event]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837092.539610000
+
+[props/fios/EXTRACT-src_ip]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837157.225826000
+
+[props/mikro/EXTRACT-src_ip%2Csrc_port]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837162.972977000
+
+[props/linksys/EXTRACT-src_ip%2Cdest_ip%2Clinksys_src_port%2Caction]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837167.325393000
+
+[transforms/REPORT-ipv4-tcp]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837258.230489000
+
+[transforms/REPORT-ipv4-udp]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837263.877523000
+
+[transforms/REPORT-ipv6-tcp]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837268.530777000
+
+[transforms/REPORT-ipv6-udp]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837272.663488000
+
+[transforms/REPORT-icmp]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837391.006053000
+
+[lookups/action_lookup.csv]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837417.325396000
+
+[transforms/action_lookup]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837515.375477000
+
+[transforms/dnsLookup]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837538.514804000
+
+[props/asus/LOOKUP-action_lookup]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837574.776375000
+
+[props/asus/LOOKUP-rdns]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837580.064917000
+
+[props/dd-wrt/LOOKUP-action_lookup]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837590.492933000
+
+[props/pfsense/LOOKUP-action_lookup]
+access = read : [ * ], write : [ * ]
+export = system
+owner = nobody
+version = 6.6.0
+modtime = 1493837611.319953000
+
+[views/map_of_connections]
+version = 7.0.0
+modtime = 1508003126.870781000
+
+[indexes/pfsense_metrics]
+owner = admin
+version = 7.0.0
+modtime = 1511730034.247230000
+
+[macros/homemonitor_index]
+version = 7.0.0
+modtime = 1515448762.422271000
+
+[props/ajit-pi/EXTRACT-neubot_host%2Cneubot_test%2Cneubot_results]
+access = read : [ * ], write : [ admin ]
+owner = admin
+version = 7.0.0
+modtime = 1515379373.824599000
+
+[views/net_neutrality_test]
+owner = admin
+version = 7.0.0
+modtime = 1515634649.535361000
+
+[views/arch]
+version = 7.0.0
+modtime = 1515622917.837560000
